@@ -10,9 +10,9 @@ DEFAULT_MODEL = "qwen2.5:3b-instruct"
 
 DB = {
     "host": "postgres",
-    "database": "postgres",
-    "user": "postgres",
-    "password": "postgres",
+    "database": "chatbot",
+    "user": "user",
+    "password": "password",
     "port": 5432
 }
 
@@ -52,9 +52,10 @@ def save_log(data):
     INSERT INTO benchmark_logs (
         message, reply, model, rag, top_k,
         time_taken, prompt_tokens, output_tokens,
-        tokens_per_sec, context_chars, context_tokens
+        tokens_per_sec, context_chars, context_tokens,
+        context_text
     )
-    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
     """, (
         data["message"],
         data["reply"],
@@ -66,7 +67,8 @@ def save_log(data):
         data["output_tokens"],
         data["tokens_per_sec"],
         data["context_chars"],
-        data["context_tokens"]
+        data["context_tokens"],
+        data["context_text"]
     ))
 
     cn.commit()
@@ -137,7 +139,8 @@ Question:
         "output_tokens": output_tokens,
         "tokens_per_sec": round(output_tokens/duration,2),
         "context_chars": len(context),
-        "context_tokens": est_tokens(context)
+        "context_tokens": est_tokens(context),
+        "context_text": context
     }
 
     save_log(result)
