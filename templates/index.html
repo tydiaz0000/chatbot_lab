@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Benchmark Lab V2</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{
+ background:#0e0e0e;
+ color:#fff;
+ font-family:Arial;
+ max-width:1100px;
+ margin:auto;
+ padding:20px;
+}
+input,textarea,button{
+ width:100%;
+ padding:10px;
+ margin:6px 0;
+ border:none;
+ border-radius:10px;
+}
+button{
+ background:#fff;
+ color:#000;
+ font-weight:bold;
+ cursor:pointer;
+}
+.card{
+ background:#1b1b1b;
+ padding:15px;
+ border-radius:14px;
+ margin-top:14px;
+}
+table{
+ width:100%;
+ border-collapse:collapse;
+}
+td,th{
+ padding:8px;
+ border-bottom:1px solid #333;
+ font-size:13px;
+}
+</style>
+</head>
+<body>
+
+<h1>Chatbot Benchmark Lab V2</h1>
+
+<textarea id="message" rows="4">What data do you collect?</textarea>
+<input id="model" value="qwen2.5:3b-instruct">
+<input id="topk" value="2">
+<label><input type="checkbox" id="rag"> Use RAG</label>
+
+<button onclick="runTest()">Run Benchmark</button>
+
+<div class="card">
+<h3>Reply</h3>
+<pre id="reply"></pre>
+</div>
+
+<div class="card">
+<h3>Metrics</h3>
+<div id="metrics"></div>
+</div>
+
+<div class="card">
+<h3>Speed Chart</h3>
+<canvas id="chart"></canvas>
+</div>
+
+<div class="card">
+<h3>Recent Runs</h3>
+<table id="history"></table>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

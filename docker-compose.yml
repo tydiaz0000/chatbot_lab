@@ -1,0 +1,17 @@
+services:
+  chatbot-lab-v2:
+    image: python:3.11-slim
+    container_name: chatbot-lab-v2
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8082:8080"
+    command: sh -c "pip install -r requirements.txt && python app.py"
+    networks:
+      - internal
+
+networks:
+  internal:
+    external: true
